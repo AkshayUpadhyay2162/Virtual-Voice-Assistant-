@@ -4,6 +4,7 @@ import wikipedia
 import os
 import webbrowser
 import speech_recognition as sr
+import smtplib
 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
@@ -26,6 +27,13 @@ def wishMe():
         speak("Good evening, Akshay")
     speak("I am Jarvis sir. Please tell me how may i help you")
 
+def sendEmail(to, content):
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.ehlo()
+    server.starttls()
+    server.login('your_email@gmail.com','your_password')
+    server.sendmail('your_email@gmail.com', to, content)
+    server.close()
 def takeCommands(): 
         # It takes microphone input from the user and returns string output.
         r = sr.Recognizer()
@@ -59,6 +67,9 @@ if __name__ == "__main__":
         
         elif 'type' in query1:
             print(query1)    
+        
+        elif 'hello' in query1:
+            speak("Hello Akshay sir")
             
         elif 'what is your name' in query1:
             speak('My name is Jarvis sir. I am here for your help')
@@ -88,7 +99,7 @@ if __name__ == "__main__":
             songs = os.listdir(music_dir)   
             print("Playing songs")
             speak("playing songs")
-            os.startfile(os.path.join(music_dir,songs[2]))
+            os.startfile(os.path.join(music_dir,songs[0]))
             
         elif 'the time' in query1:
             Time = datetime.datetime.now().strftime("%H:%M:%S")
@@ -104,7 +115,23 @@ if __name__ == "__main__":
             speak("opening visual studio code")
             os.startfile(code_path) 
             
+        elif 'send email' in query1:
+            try:
+                print("What should i send sir?")
+                speak("What should i send sir?")
+                content = takeCommands()
+                to = "reciever_email@gmail.com"
+                sendEmail(to, content)
+                # print("Email has been sent successfully")
+                speak("Email has been sent successfully")
+                
+            except Exception as e:
+                print(e)
+                speak("Sorry sir, i couldn't send the email. please try again")
+        
+                
+            
         elif 'exit' in query1:
             break
-    speak("Thank you Akshay, Have a good day")  
+    speak("Thank you Sir, Have a good day")  
         
