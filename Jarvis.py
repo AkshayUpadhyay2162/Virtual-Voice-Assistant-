@@ -27,13 +27,13 @@ def wishMe():
         speak("Good evening, Akshay")
     speak("I am Jarvis sir. Please tell me how may i help you")
 
-def sendEmail(to, content):
-    server = smtplib.SMTP('smtp.gmail.com', 587)
-    server.ehlo()
-    server.starttls()
-    server.login('your_email@gmail.com','your_password')
-    server.sendmail('your_email@gmail.com', to, content)
-    server.close()
+# def sendEmail(to, content):
+#     server = smtplib.SMTP('smtp.gmail.com', 587)
+#     server.ehlo()
+#     server.starttls()
+#     server.login('your_email@gmail.com','your_password')
+#     server.sendmail('your_email@gmail.com', to, content)
+#     server.close()
 def takeCommands(): 
         # It takes microphone input from the user and returns string output.
         r = sr.Recognizer()
